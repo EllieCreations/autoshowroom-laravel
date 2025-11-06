@@ -1,0 +1,58 @@
+# ============================================
+# 🌐 LARAVEL BASE
+# ============================================
+
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+/storage/pail
+.env
+.env.*
+.phpunit.result.cache
+.phpunit.cache
+Homestead.json
+Homestead.yaml
+auth.json
+
+# ============================================
+# ⚙️ LARAVEL CACHE E LOG
+# ============================================
+
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+!/storage/logs/.gitignore
+!/storage/framework/.gitignore
+!/storage/framework/cache/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/views/.gitignore
+
+# ============================================
+# 💻 TOOLS E IDE
+# ============================================
+
+/.idea
+/.vscode
+/.fleet
+/.nova
+/.zed
+.phpactor.json
+*.swp
+*.bak
+*.tmp
+
+# ============================================
+# 💡 FRONTEND (Vite, Laravel Mix)
+/public/build
+/public/hot
+
+# ============================================
+# 🗃️ SISTEMA OPERATIVO
+.DS_Store
+Thumbs.db
+
+# ============================================
+# 🧪 ALTRI FILE TEMPORANEI / DI DEBUG
+*.log
