@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\ContactFormMail;
+use App\Mail\ContactConfirmationMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 
 class ContactController extends Controller
 {
     public function index()
     {
-        return view('emails.contact');
+        return view('contact'); // Questa è la PAGINA WEB del form (contact.blade.php)
     }
 
     public function send(Request $request)
@@ -54,9 +56,15 @@ class ContactController extends Controller
             // Log dello score per monitoraggio
             \Log::info('reCAPTCHA score', ['score' => $recaptchaData['score']]);
             
-            // Invia email
+            // 1. Invia email A TE (info@amc-srls.it) con i dati del form
+            //    Usa ContactFormMail che punta a emails.contact-notification
             Mail::to('info@amc-srls.it')
                 ->send(new ContactFormMail($validated));
+
+            // 2. Invia email di CONFERMA al CLIENTE
+            //    Usa ContactConfirmationMail che punta a emails.contact-confirmation
+            Mail::to($validated['email'])
+                ->send(new ContactConfirmationMail($validated));
 
             return back()->with('success', '✅ Messaggio inviato con successo! Ti contatteremo presto.');
             

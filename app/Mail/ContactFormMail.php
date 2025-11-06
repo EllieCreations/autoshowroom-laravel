@@ -20,6 +20,6 @@ class ContactFormMail extends Mailable
     public function build()
     {
         return $this->subject('Nuovo messaggio da ' . $this->data['name'])
-                    ->view('emails.contact');
+                    ->view('emails.contact-notification'); // Template per TE (con i dati del form)
     }
 }
