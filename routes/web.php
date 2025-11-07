@@ -7,6 +7,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminCarController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // =========================================================
@@ -55,5 +56,6 @@ Route::get('/cars', [CarController::class, 'index']);
 Route::get('/contact', [ContactController::class, 'index'])->name('contact'); // ✅ AGGIUNTO ->name('contact')
 Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 Route::get('/auto/{id}', [CarController::class, 'show'])->name('cars.show');

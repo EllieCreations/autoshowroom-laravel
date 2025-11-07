@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Contatti | AMC-SRLS')
+{{-- ✅ AGGIUNGI QUESTI META TAGS SEO --}}
+@section('title', 'Contattaci - Richiedi Informazioni | AMC-SRLS Auto Showroom Ligure')
+
+@section('description', 'Contatta AMC-SRLS per informazioni su auto, finanziamenti, permute e test drive.')
+
+@section('keywords', 'contatti concessionaria, richiesta informazioni auto, preventivo auto, test drive, permuta auto')
+
+{{-- ✅ AGGIUNGI STRUCTURED DATA --}}
+@push('structured-data')
+    @include('components.structured-data-business')
+@endpush
 
 @section('content')
 

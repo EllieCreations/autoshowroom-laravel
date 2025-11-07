@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Inventario Auto | AMC-SRLS')
+{{-- ✅ AGGIUNGI QUESTI META TAGS SEO --}}
+@section('title', 'Inventario Auto - Scopri Tutte le Nostre Auto Nuove e Usate | AMC-SRLS')
+
+@section('description', 'Esplora il nostro inventario completo di auto nuove e usate. Filtri per marca, anno, prezzo e carburante.')
+
+@section('keywords', 'inventario auto, auto in vendita, catalogo auto, auto usate, ricerca auto, concessionaria')
 
 @section('content')
 

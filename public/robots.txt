@@ -1,2 +1,15 @@
+# Robots.txt per AMC-SRLS Auto Showroom
+
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
+
+# Sitemap
+Sitemap: https://amc-srls.it/sitemap.xml
+
+# Google Bot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /admin/*
