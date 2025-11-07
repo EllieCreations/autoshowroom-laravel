@@ -7,6 +7,19 @@
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {{-- 🆕 Breadcrumbs --}}
+        <nav class="mb-4 flex items-center text-sm text-gray-600">
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-600 transition-colors">Dashboard</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="{{ route('admin.cars.index') }}" class="hover:text-blue-600 transition-colors">Auto</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900 font-medium">Aggiungi Nuova</span>
+        </nav>
+        
         {{-- Header --}}
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Aggiungi Nuova Auto</h1>

@@ -11,10 +11,12 @@ class ContactFormMail extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $car; // ✅ Nuovo
 
-    public function __construct($data)
+    public function __construct($data, $car = null) // ✅ Aggiunto parametro
     {
         $this->data = $data;
+        $this->car = $car; // ✅ Nuovo
     }
 
     public function build()

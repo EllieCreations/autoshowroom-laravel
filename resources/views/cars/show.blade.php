@@ -30,7 +30,7 @@
             <div class="relative mb-4 rounded-2xl overflow-hidden bg-gray-200 shadow-xl">
                 @if($car->images->first())
                     <img id="main-image" 
-                         src="{{ $car->images->first()->image_path }}" 
+                         src="{{ asset('storage/' . $car->images->first()->image_path) }}" 
                          alt="{{ $car->brand->name ?? 'Auto' }} {{ $car->model }}"
                          class="w-full h-96 object-cover">
                 @else
@@ -54,8 +54,8 @@
             <div class="grid grid-cols-4 gap-3">
                 @foreach($car->images as $image)
                 <div class="cursor-pointer rounded-lg overflow-hidden hover:opacity-75 transition-opacity border-2 border-transparent hover:border-blue-500"
-                     onclick="changeMainImage('{{ $image->image_path }}')">
-                    <img src="{{ $image->image_path }}" 
+                     onclick="changeMainImage('{{ asset('storage/' . $image->image_path) }}')">
+                    <img src="{{ asset('storage/' . $image->image_path) }}" 
                          alt="Thumbnail"
                          class="w-full h-24 object-cover">
                 </div>
@@ -194,7 +194,7 @@
 
             {{-- CTA Buttons --}}
             <div class="space-y-3">
-                <a href="/contact" 
+                <a href="{{ route('contact', ['car_id' => $car->id]) }}" 
                    class="w-full flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-200 shadow-xl hover:shadow-2xl">
                     <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>

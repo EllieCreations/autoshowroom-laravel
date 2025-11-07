@@ -63,6 +63,33 @@
             </div>
             @endif
 
+            {{-- ✅ NUOVO: Sezione Auto --}}
+            @if($car)
+            <div class="field" style="background: #dbeafe; border-left: 3px solid #2563eb;">
+                <div class="label">🚗 AUTO DI INTERESSE</div>
+                <div class="value">
+                    <strong style="font-size: 16px; color: #1e40af;">
+                        {{ $car->brand->name ?? 'Auto' }} {{ $car->model }}
+                    </strong>
+                    <div style="margin-top: 8px; font-size: 14px; color: #475569;">
+                        📅 Anno: {{ $car->year }} | 
+                        🛣️ Km: {{ number_format($car->km, 0, ',', '.') }} km | 
+                        💰 Prezzo: <strong style="color: #2563eb;">€ {{ number_format($car->price, 0, ',', '.') }}</strong>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <a href="{{ url('/admin/cars/' . $car->id . '/edit') }}" 
+                           style="display: inline-block; background: #2563eb; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px; font-size: 13px; margin-right: 8px;">
+                            📝 Vedi in Admin
+                        </a>
+                        <a href="{{ url('/cars/' . $car->id) }}" 
+                           style="display: inline-block; background: #059669; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px; font-size: 13px;">
+                            👁️ Vedi sul Sito
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endif
+
             <div class="field message-field">
                 <div class="label">💬 Messaggio del Cliente</div>
                 <div class="value" style="white-space: pre-line; line-height: 1.8;">{{ $data['message'] }}</div>

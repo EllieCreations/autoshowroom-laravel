@@ -52,7 +52,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // =========================================================
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/cars', [CarController::class, 'index']);
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact'); // ✅ AGGIUNTO ->name('contact')
 Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
 

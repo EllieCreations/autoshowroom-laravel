@@ -8,9 +8,21 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {{-- Header --}}
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard Amministratore</h1>
-            <p class="text-gray-600">Benvenuta nell'area di gestione AMC-SRLS</p>
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard Amministratore</h1>
+                <p class="text-gray-600">Benvenuto nell'area di gestione AMC-SRLS</p>
+            </div>
+            {{-- 🆕 Logout Button --}}
+            <form method="POST" action="{{ route('admin.logout') }}">
+                @csrf
+                <button type="submit" class="inline-flex items-center text-red-600 hover:text-red-700 font-medium transition-colors">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                    Logout
+                </button>
+            </form>
         </div>
 
         {{-- Statistiche --}}
@@ -133,7 +145,7 @@
                 <div class="group border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
                     <div class="h-40 bg-gray-200 overflow-hidden">
                         @if($car->images->first())
-                            <img src="{{ $car->images->first()->image_path }}" 
+                            <img src="{{ asset('storage/' . $car->images->first()->image_path) }}" 
                                  alt="{{ $car->brand->name }}"
                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
                         @else

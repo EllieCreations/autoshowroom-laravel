@@ -25,6 +25,7 @@ class ContactController extends Controller
             'subject' => 'nullable|string',
             'message' => 'required|string|max:2000',
             'recaptcha_token' => 'required',
+            'car_id' => 'nullable|exists:cars,id', // ✅ Nuovo campo
         ], [
             'name.required' => 'Il nome è obbligatorio',
             'email.required' => 'L\'email è obbligatoria',
@@ -56,15 +57,21 @@ class ContactController extends Controller
             // Log dello score per monitoraggio
             \Log::info('reCAPTCHA score', ['score' => $recaptchaData['score']]);
             
+            // ✅ Recupera info auto se presente
+            $car = null;
+            if (!empty($validated['car_id'])) {
+                $car = \App\Models\Car::with(['brand', 'images'])->find($validated['car_id']);
+            }
+            
             // 1. Invia email A TE (info@amc-srls.it) con i dati del form
             //    Usa ContactFormMail che punta a emails.contact-notification
             Mail::to('info@amc-srls.it')
-                ->send(new ContactFormMail($validated));
+                ->send(new ContactFormMail($validated, $car)); // ✅ Passa anche $car
 
             // 2. Invia email di CONFERMA al CLIENTE
             //    Usa ContactConfirmationMail che punta a emails.contact-confirmation
             Mail::to($validated['email'])
-                ->send(new ContactConfirmationMail($validated));
+                ->send(new ContactConfirmationMail($validated, $car)); // ✅ Passa anche $car
 
             return back()->with('success', '✅ Messaggio inviato con successo! Ti contatteremo presto.');
             

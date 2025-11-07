@@ -172,7 +172,7 @@
                             <div class="flex items-center">
                                 <div class="h-16 w-24 flex-shrink-0 rounded-lg overflow-hidden bg-gray-200">
                                     @if($car->images->first())
-                                        <img src="{{ $car->images->first()->image_path }}" 
+                                        <img src="{{ asset('storage/' . $car->images->first()->image_path) }}" 
                                              alt="{{ $car->brand->name }}"
                                              class="h-full w-full object-cover">
                                     @else

@@ -188,7 +188,7 @@
             {{-- Immagine --}}
             <div class="relative h-56 overflow-hidden bg-gray-200">
                 @if($car->images->first())
-                    <img src="{{ $car->images->first()->image_path }}" 
+                    <img src="{{ asset('storage/' . $car->images->first()->image_path) }}" 
                          alt="{{ $car->brand->name ?? 'Auto' }} {{ $car->model }}"
                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                 @else

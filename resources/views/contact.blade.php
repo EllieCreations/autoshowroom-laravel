@@ -12,6 +12,49 @@
     </div>
 </section>
 
+{{-- Banner Auto di Interesse --}}
+@if(request('car_id'))
+    @php
+        $interestedCar = \App\Models\Car::with(['brand', 'images'])->find(request('car_id'));
+    @endphp
+    
+    @if($interestedCar)
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8">
+        <div class="bg-white rounded-2xl shadow-xl p-6 border-2 border-blue-500">
+            <div class="flex items-center mb-3">
+                <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <h3 class="text-lg font-bold text-gray-900">Stai richiedendo informazioni su:</h3>
+            </div>
+            <div class="flex items-center space-x-4">
+                @if($interestedCar->images->first())
+                <img src="{{ asset('storage/' . $interestedCar->images->first()->image_path) }}" 
+                     alt="{{ $interestedCar->brand->name ?? '' }} {{ $interestedCar->model }}"
+                     class="w-24 h-24 rounded-lg object-cover border-2 border-gray-200">
+                @endif
+                <div class="flex-1">
+                    <h4 class="text-xl font-bold text-gray-900">
+                        {{ $interestedCar->brand->name ?? 'Auto' }} {{ $interestedCar->model }}
+                    </h4>
+                    <div class="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                        <span>Anno {{ $interestedCar->year }}</span>
+                        <span>•</span>
+                        <span>{{ number_format($interestedCar->km, 0, ',', '.') }} km</span>
+                        <span>•</span>
+                        <span class="text-blue-600 font-semibold">€ {{ number_format($interestedCar->price, 0, ',', '.') }}</span>
+                    </div>
+                </div>
+                <a href="{{ route('cars.show', $interestedCar->id) }}" 
+                   class="text-blue-600 hover:text-blue-700 font-medium text-sm">
+                    Vedi dettagli →
+                </a>
+            </div>
+        </div>
+    </section>
+    @endif
+@endif
+
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
         
@@ -46,6 +89,11 @@
 
                 <form action="/contact" method="POST" class="space-y-6">
                     @csrf
+
+                    {{-- Campo Hidden per Car ID --}}
+                    @if(request('car_id'))
+                        <input type="hidden" name="car_id" value="{{ request('car_id') }}">
+                    @endif
 
                     {{-- Nome --}}
                     <div>
@@ -125,12 +173,18 @@
                         <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">
                             Messaggio *
                         </label>
+                        @php
+                            $defaultMessage = old('message');
+                            if (!$defaultMessage && request('car_id') && isset($interestedCar)) {
+                                $defaultMessage = "Buongiorno,\n\nSono interessato/a al veicolo {$interestedCar->brand->name} {$interestedCar->model} ({$interestedCar->year}) in vendita a € " . number_format($interestedCar->price, 0, ',', '.') . ".\n\nVorrei ricevere maggiori informazioni riguardo:\n- Condizioni del veicolo\n- Disponibilità per un test drive\n- Documentazione e garanzie\n\nGrazie per la disponibilità.\n\nCordiali saluti";
+                            }
+                        @endphp
                         <textarea id="message"
                                   name="message" 
-                                  rows="6"
+                                  rows="8"
                                   required
                                   placeholder="Scrivi qui il tuo messaggio..."
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none @error('message') border-red-500 @enderror">{{ $defaultMessage }}</textarea>
                         @error('message')
                         <p class="text-red-600 text-sm mt-1 flex items-center">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

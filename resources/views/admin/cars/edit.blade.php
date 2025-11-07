@@ -7,6 +7,19 @@
 <div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {{-- 🆕 Breadcrumbs --}}
+        <nav class="mb-4 flex items-center text-sm text-gray-600">
+            <a href="{{ route('admin.dashboard') }}" class="hover:text-blue-600 transition-colors">Dashboard</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <a href="{{ route('admin.cars.index') }}" class="hover:text-blue-600 transition-colors">Auto</a>
+            <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span class="text-gray-900 font-medium">Modifica #{{ $car->id }}</span>
+        </nav>
+        
         {{-- Header --}}
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">
@@ -207,13 +220,13 @@
                     @foreach ($car->images->sortBy('position') as $image)
                     <div class="relative group cursor-move rounded-lg overflow-hidden border-2 border-gray-200 hover:border-blue-500 transition-all" 
                          data-id="{{ $image->id }}">
-                        <img src="{{ $image->image_path }}" 
+                        <img src="{{ asset('storage/' . $image->image_path) }}" 
                              alt="Immagine auto"
-                             class="w-full h-40 object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all flex items-center justify-center">
+                             class="w-full h-40 object-cover block">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-2">
                             <button type="button"
                                     onclick="deleteImage({{ $image->id }})"
-                                    class="opacity-0 group-hover:opacity-100 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all transform scale-90 group-hover:scale-100">
+                                    class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg font-medium transition-all shadow-lg">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                                 </svg>
@@ -270,12 +283,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    // Rimuovi istanze precedenti di Dropzone
-    if (Dropzone.instances.length > 0) {
-        Dropzone.instances.forEach(instance => instance.destroy());
-    }
+// IMPORTANTE: Disabilita auto-discovery di Dropzone
+Dropzone.autoDiscover = false;
 
+document.addEventListener("DOMContentLoaded", () => {
     // Inizializza Dropzone
     const carDropzone = new Dropzone("#carDropzone", {
         url: "{{ route('admin.cars.upload') }}",

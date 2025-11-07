@@ -177,8 +177,8 @@ class AdminCarController extends Controller
         $file    = $request->file('file');
         $filename = uniqid('car_', true) . '.webp';
 
-        // ✅ Salviamo i file in /public/temp o /public/cars/{id}
-        $folder = $carId ? public_path("cars/{$carId}") : public_path('temp');
+        // ✅ Salviamo i file in storage/app/public/temp o storage/app/public/cars/{id}
+        $folder = $carId ? storage_path("app/public/cars/{$carId}") : storage_path('app/public/temp');
         if (!is_dir($folder)) mkdir($folder, 0775, true);
 
         $filepath = $folder . '/' . $filename;
@@ -192,7 +192,7 @@ class AdminCarController extends Controller
             if ($carId) {
                 CarImage::create([
                     'car_id'     => $carId,
-                    'image_path' => "/cars/{$carId}/{$filename}",
+                    'image_path' => "cars/{$carId}/{$filename}",
                 ]);
             }
 
@@ -204,14 +204,14 @@ class AdminCarController extends Controller
     }
 
     /**
-     * ✅ Sposta le immagini da /public/temp a /public/cars/{id}
+     * ✅ Sposta le immagini da storage/app/public/temp a storage/app/public/cars/{id}
      */
     private function moveTempImagesToCar(array $tempImages, Car $car): void
     {
         if (empty($tempImages)) return;
 
-        $carFolder = public_path("cars/{$car->id}");
-        $tempFolder = public_path('temp');
+        $carFolder = storage_path("app/public/cars/{$car->id}");
+        $tempFolder = storage_path('app/public/temp');
 
         if (!is_dir($carFolder)) mkdir($carFolder, 0775, true);
 
@@ -228,7 +228,7 @@ class AdminCarController extends Controller
 
             CarImage::create([
                 'car_id'     => $car->id,
-                'image_path' => "/cars/{$car->id}/" . basename($filename),
+                'image_path' => "cars/{$car->id}/" . basename($filename),
             ]);
         }
     }
@@ -241,7 +241,7 @@ class AdminCarController extends Controller
         $image = CarImage::find($id);
         if (!$image) return response()->json(['error' => 'Immagine non trovata'], 404);
 
-        $path = public_path($image->image_path);
+        $path = storage_path('app/public/' . $image->image_path);
         if (file_exists($path)) @unlink($path);
 
         $image->delete();
@@ -256,11 +256,11 @@ class AdminCarController extends Controller
         $car = Car::with('images')->findOrFail($id);
 
         foreach ($car->images as $image) {
-            $path = public_path($image->image_path);
+            $path = storage_path('app/public/' . $image->image_path);
             if (file_exists($path)) @unlink($path);
         }
 
-        $dir = public_path("cars/{$car->id}");
+        $dir = storage_path("app/public/cars/{$car->id}");
         if (is_dir($dir)) {
             @array_map('unlink', glob("$dir/*.*"));
             @rmdir($dir);
