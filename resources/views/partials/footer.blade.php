@@ -76,8 +76,8 @@
                 © {{ date('Y') }} AMC-SRLS. Tutti i diritti riservati.
             </p>
             <div class="flex space-x-6 mt-4 md:mt-0">
-                <a href="#" class="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200">Privacy Policy</a>
-                <a href="#" class="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200">Termini & Condizioni</a>
+                <a href="{{ route('privacy') }}" class="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200">Privacy Policy</a>
+                <a href="{{ route('terms') }}" class="text-sm text-gray-400 hover:text-blue-400 transition-colors duration-200">Termini & Condizioni</a>
             </div>
         </div>
     </div>

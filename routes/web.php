@@ -57,5 +57,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+Route::view('/privacy-policy', 'legal.privacy')->name('privacy');
+Route::view('/termini-condizioni', 'legal.terms')->name('terms');
 
 Route::get('/auto/{id}', [CarController::class, 'show'])->name('cars.show');
