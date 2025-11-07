@@ -63,7 +63,7 @@
             </div>
             @endif
 
-            {{-- ✅ NUOVO: Sezione Auto --}}
+            {{-- Sezione Auto --}}
             @if($car)
             <div class="field" style="background: #dbeafe; border-left: 3px solid #2563eb;">
                 <div class="label">🚗 AUTO DI INTERESSE</div>

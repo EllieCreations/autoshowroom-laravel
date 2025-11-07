@@ -2,7 +2,7 @@
 
 @section('title', ($car->brand->name ?? 'Auto') . ' ' . $car->model . ' | AMC-SRLS')
 
-{{-- ✅ META TAGS SEO DINAMICI PER OGNI AUTO --}}
+{{-- META TAGS SEO DINAMICI PER OGNI AUTO --}}
 @section('title', ($car->brand->name ?? 'Auto') . ' ' . $car->model . ' ' . $car->year . ' - ' . number_format($car->km, 0, ',', '.') . ' km | AMC-SRLS')
 
 @section('description', 'Acquista ' . ($car->brand->name ?? 'Auto') . ' ' . $car->model . ' del ' . $car->year . ' con ' . number_format($car->km, 0, ',', '.') . ' km a € ' . number_format($car->price, 0, ',', '.') . '. Auto ' . $car->car_condition . ' in vendita presso AMC-SRLS .')
@@ -17,7 +17,7 @@
 @section('og_description', 'Auto ' . $car->car_condition . ' - € ' . number_format($car->price, 0, ',', '.') . ' - ' . number_format($car->km, 0, ',', '.') . ' km')
 @section('og_image', $car->images->first() ? url('storage/' . $car->images->first()->image_path) : asset('images/og-default.jpg'))
 
-{{-- ✅ STRUCTURED DATA AUTO --}}
+{{-- STRUCTURED DATA AUTO --}}
 @push('structured-data')
     @include('components.structured-data-car', ['car' => $car])
 @endpush

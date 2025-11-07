@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-{{-- ✅ AGGIUNGI QUESTI META TAGS SEO --}}
+{{-- META TAGS SEO --}}
 @section('title', 'AMC-SRLS | Auto Showroom - Veicoli Nuovi e Usati Garantiti')
 
 @section('description', 'Showroom auto. Visita il nostro catalogo online!')
 
 @section('keywords', 'auto usate liguria, la spezia, concessionaria auto, vendita auto, auto nuove, showroom auto, auto km 0')
 
-{{-- ✅ AGGIUNGI STRUCTURED DATA --}}
+{{-- STRUCTURED DATA --}}
 @push('structured-data')
     @include('components.structured-data-business')
 @endpush

@@ -13,13 +13,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>✅ Messaggio Ricevuto!</h1>
+            <h1> Messaggio Ricevuto!</h1>
         </div>
         <div class="content">
             <p>Gentile <strong>{{ $data['name'] }}</strong>,</p>
             <p>Grazie per averci contattato! Abbiamo ricevuto il tuo messaggio e ti risponderemo il prima possibile.</p>
             
-            {{-- ✅ NUOVO: Mostra auto se presente --}}
+            {{-- Mostra auto se presente --}}
             @if($car)
             <div style="background: #dbeafe; border-left: 4px solid #2563eb; padding: 20px; margin: 20px 0; border-radius: 6px;">
                 <p style="margin: 0 0 10px 0; font-weight: bold; color: #1e40af; font-size: 14px;">🚗 HAI RICHIESTO INFORMAZIONI SU:</p>

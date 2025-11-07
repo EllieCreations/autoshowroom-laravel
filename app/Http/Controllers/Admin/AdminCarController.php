@@ -99,10 +99,10 @@ class AdminCarController extends Controller
         $brand = Brand::find($validated['brand_id']);
         $validated['slug'] = Str::slug($brand->name . '-' . $validated['model'] . '-' . $validated['year']);
 
-        // ✅ Crea l’auto
+        // Crea l’auto
         $car = Car::create($validated);
 
-        // ✅ Se sono presenti immagini temporanee → spostale
+        // Se sono presenti immagini temporanee → spostale
         $tempImages = $request->input('temp_images', []);
         $this->moveTempImagesToCar($tempImages, $car);
 
@@ -154,7 +154,7 @@ class AdminCarController extends Controller
 
         $car->update($validated);
 
-        // ✅ Se sono presenti nuove immagini temp → spostale
+        // Se sono presenti nuove immagini temp → spostale
         $tempImages = $request->input('temp_images', []);
         $this->moveTempImagesToCar($tempImages, $car);
 
@@ -163,7 +163,7 @@ class AdminCarController extends Controller
     }
 
     /**
-     * ✅ Upload asincrono Dropzone
+     * Upload asincrono Dropzone
      */
     public function upload(Request $request)
     {
@@ -177,7 +177,7 @@ class AdminCarController extends Controller
         $file    = $request->file('file');
         $filename = uniqid('car_', true) . '.webp';
 
-        // ✅ Salviamo i file in storage/app/public/temp o storage/app/public/cars/{id}
+        // Salva i file in storage/app/public/temp o storage/app/public/cars/{id}
         $folder = $carId ? storage_path("app/public/cars/{$carId}") : storage_path('app/public/temp');
         if (!is_dir($folder)) mkdir($folder, 0775, true);
 
@@ -204,7 +204,7 @@ class AdminCarController extends Controller
     }
 
     /**
-     * ✅ Sposta le immagini da storage/app/public/temp a storage/app/public/cars/{id}
+     * Sposta le immagini da storage/app/public/temp a storage/app/public/cars/{id}
      */
     private function moveTempImagesToCar(array $tempImages, Car $car): void
     {
@@ -234,7 +234,7 @@ class AdminCarController extends Controller
     }
 
     /**
-     * ✅ Elimina una singola immagine
+     * Elimina una singola immagine
      */
     public function deleteImage(Request $request, $id)
     {
@@ -249,7 +249,7 @@ class AdminCarController extends Controller
     }
 
     /**
-     * ✅ Elimina completamente un’auto
+     * Elimina completamente un’auto
      */
     public function destroy($id)
     {
@@ -273,7 +273,7 @@ class AdminCarController extends Controller
             ->with('success', 'Auto e relative immagini eliminate con successo.');
     }
     /**
-     * ✅ Riordina le immagini via AJAX
+     * Riordina le immagini via AJAX
      */
     public function reorderImages(Request $request)
     {

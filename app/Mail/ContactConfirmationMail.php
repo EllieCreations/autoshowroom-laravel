@@ -11,12 +11,12 @@ class ContactConfirmationMail extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
-    public $car; // ✅ Nuovo
+    public $car; 
 
-    public function __construct($data, $car = null) // ✅ Aggiunto parametro
+    public function __construct($data, $car = null) 
     {
         $this->data = $data;
-        $this->car = $car; // ✅ Nuovo
+        $this->car = $car; 
     }
 
     public function build()

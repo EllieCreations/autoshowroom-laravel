@@ -17,11 +17,11 @@ use App\Http\Middleware\AdminAuth;
 
 Route::prefix('admin')->name('admin.')->group(function () {
     
-    // 🔓 Rotte pubbliche (senza middleware)
+    // Rotte pubbliche (senza middleware)
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
-    // 🔒 Rotte protette (solo se loggato)
+    // Rotte protette (solo se loggato)
     Route::middleware(AdminAuth::class)->group(function () {
 
         Route::get('/', [AdminController::class, 'index'])->name('dashboard');
@@ -32,15 +32,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // =========================================================
         Route::resource('cars', AdminCarController::class);
 
-        // ✅ Upload immagini asincrono (Dropzone)
+        // Upload immagini asincrono (Dropzone)
         Route::post('/cars/upload', [AdminCarController::class, 'upload'])
             ->name('cars.upload');
-        // 🔄 Riordino immagini via drag & drop
+        // Riordino immagini via drag & drop
         Route::post('/cars/reorder-images', [AdminCarController::class, 'reorderImages'])
             ->name('cars.reorderImages');
 
 
-        // 🔄 Eliminazione singola immagine via AJAX
+        // Eliminazione singola immagine via AJAX
         Route::delete('/cars/image/{id}', [AdminCarController::class, 'deleteImage'])
             ->name('cars.deleteImage');
 
@@ -53,7 +53,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 // =========================================================
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/cars', [CarController::class, 'index']);
-Route::get('/contact', [ContactController::class, 'index'])->name('contact'); // ✅ AGGIUNTO ->name('contact')
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send']);
 Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
